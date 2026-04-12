@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed – Curry King & Grills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c; --gold-light: #e8c97a; --dark: #1a0f00;
+    --dark2: #2a1a05; --red2: #c0392b; --cream: #f5e6c8;
+    --text-light: #f0ddb0; --border: rgba(201,168,76,0.3);
+    --green: #1a5c2a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Lato', sans-serif; background: var(--dark); color: var(--cream); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+  .success-card {
+    background: linear-gradient(145deg, rgba(42,26,5,0.98), rgba(26,15,0,0.99));
+    border: 1px solid var(--gold);
+    border-radius: 16px;
+    max-width: 580px;
+    width: 100%;
+    padding: 40px 36px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .check-circle {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, var(--green), #2d8040);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.2rem;
+    margin: 0 auto 20px;
+    box-shadow: 0 4px 20px rgba(26,92,42,0.4);
+  }
+  h1 { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 8px; }
+  .order-num { color: var(--gold-light); font-size: 1rem; margin-bottom: 24px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  .detail-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.88rem; border-bottom: 1px solid rgba(201,168,76,0.08); }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: rgba(240,221,176,0.6); }
+  .detail-value { font-weight: 600; }
+  .total-row { display: flex; justify-content: space-between; padding: 12px 0; font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold); border-top: 1px solid var(--gold); margin-top: 8px; font-weight: 700; }
+  .payment-box {
+    background: rgba(201,168,76,0.07);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 24px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--text-light);
+    text-align: left;
+  }
+  .payment-box strong { color: var(--gold-light); }
+  .btn-new {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 13px 32px;
+    background: linear-gradient(135deg, var(--red2), #b03020);
+    border-radius: 7px;
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(155,28,28,0.35);
+  }
+  .btn-new:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(155,28,28,0.5); }
+</style>
+</head>
+<body>
+<div class="success-card">
+  <div class="check-circle">✓</div>
+  <h1>Order Received!</h1>
+  <p class="order-num">Order #{{ order.id }} &nbsp;·&nbsp; {{ order.created_at|date:"N j, Y – g:i A" }}</p>
+
+  <hr class="divider">
+
+  <div class="detail-row"><span class="detail-label">Customer</span><span class="detail-value">{{ order.customer_name }}</span></div>
+  <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">{{ order.contact_number }}</span></div>
+  <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">{{ order.email_address }}</span></div>
+  <div class="detail-row"><span class="detail-label">Package</span><span class="detail-value">{{ catering_label }}</span></div>
+  <div class="detail-row"><span class="detail-label">Persons</span><span class="detail-value">{{ order.number_of_persons }}</span></div>
+  {% if addons %}
+  <div class="detail-row"><span class="detail-label">Add-ons</span><span class="detail-value" style="text-align:right;max-width:60%">{{ addons|join:", " }}</span></div>
+  {% endif %}
+  {% if order.replace_beef_mutton %}
+  <div class="detail-row"><span class="detail-label">Mutton upgrade</span><span class="detail-value">Yes (+$1/person)</span></div>
+  {% endif %}
+  <div class="detail-row"><span class="detail-label">Service</span><span class="detail-value">{{ service_label }}</span></div>
+
+  <hr class="divider">
+
+  <div class="detail-row"><span class="detail-label">Subtotal</span><span class="detail-value">${{ order.subtotal }}</span></div>
+  <div class="detail-row"><span class="detail-label">HST / Tax (13%)</span><span class="detail-value">${{ order.tax_amount }}</span></div>
+  <div class="total-row"><span>Total</span><span>${{ order.total }}</span></div>
+
+  <div class="payment-box">
+    <strong>⚡ Next Step — Confirm Your Order</strong><br>
+    Please send minimum <strong>30% deposit</strong> via Interac to
+    <strong>greenmaple.com@gmail.com</strong> to finalize your order.<br><br>
+    Or call us at <strong>Ph# 416 261 0888</strong> / <strong>Mob# 437 345 6722</strong> to arrange payment.<br><br>
+    A confirmation email has been sent to <strong>{{ order.email_address }}</strong>.
+  </div>
+
+  <a href="/" class="btn-new">👑 Place Another Order</a>
+</div>
+</body>
+</html>
