@@ -15,11 +15,24 @@ SERVICE_OPTIONS = [
 ]
 
 ADD_ON_PRICES = {
+    'shawarma_chicken_wrap': 7.99,
+    'medium_cheese_pizza': 7.99,
     'chicken_roast': 3.50,
     'fish_bhona': 4.00,
     'beef_rezella': 5.00,
     'samee_kebab': 2.00,
-    'firni_payes': 2.00,
+    'firni_payes': 1.50,
+    'gulab_jam': 1.00,
+    'veg_samosa': 0.75,
+    'bbq_chicken': 3.00,
+    'jorda': 1.50,
+    'sutki_dry_fish': 3.00,
+    'mix_vegetable': 5.00,
+    'chinese_vegetable': 5.00,
+    'bhona_khichuri': 5.00,
+    'karala_bhaji': 5.00,
+    'bindi_bhaji': 5.00,
+    'italian_pasta': 8.99,
 }
 
 CATERING_PRICES = {

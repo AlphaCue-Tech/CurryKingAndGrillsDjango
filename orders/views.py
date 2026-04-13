@@ -8,11 +8,24 @@ from decimal import Decimal
 
 
 ADD_ON_LABELS = {
+    'shawarma_chicken_wrap':'Shawarma Chicken Wrap',
+    'medium_cheese_pizza':'Medium Cheese Pizza',
     'chicken_roast': 'Chicken Roast leg/thai',
     'fish_bhona': 'Fish Bhona',
     'beef_rezella': 'Beef Rezella',
     'samee_kebab': 'Samee Kebab',
     'firni_payes': 'Firni/Payes',
+    'gulab_jam': 'Gulab Jam',
+    'veg_samosa': 'Veg Samosa',
+    'bbq_chicken': 'BBQ Chicken Leg/Thai',
+    'jorda': 'Jorda',
+    'sutki_dry_fish': 'Sutki/Dry Fish Bharta (3×3cm)',
+    'mix_vegetable': 'Mix Vegetable (12oz)',
+    'chinese_vegetable': 'Chinese Vegetable (12oz)',
+    'bhona_khichuri': 'Bhona Khichuri (28oz)',
+    'karala_bhaji': 'Karala Bhaji (12oz)',
+    'bindi_bhaji': 'Bindi Bhaji (12oz)',
+    'italian_pasta': 'Italian Alfredo Pasta (28oz)',
 }
 
 
@@ -53,14 +66,14 @@ def order_form(request):
 
         # Calculate pricing
         base_price = Decimal(str(CATERING_PRICES.get(catering_option, 0)))
-        addon_total = Decimal('0')
+        addon_per_person = Decimal('0')
         for addon in add_ons:
-            addon_total += Decimal(str(ADD_ON_PRICES.get(addon, 0)))
+            addon_per_person += Decimal(str(ADD_ON_PRICES.get(addon, 0)))
 
         if replace_beef_mutton:
-            addon_total += Decimal('1.00')
+            addon_per_person += Decimal('1.00')
 
-        per_person = base_price + addon_total
+        per_person = base_price + addon_per_person
         subtotal = per_person * number_of_persons
         tax_amount = subtotal * Decimal(str(TAX_RATE))
         total = subtotal + tax_amount

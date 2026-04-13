@@ -47,11 +47,8 @@
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 40px,
-      rgba(201,168,76,0.02) 40px,
-      rgba(201,168,76,0.02) 80px
+      45deg, transparent, transparent 40px,
+      rgba(201,168,76,0.02) 40px, rgba(201,168,76,0.02) 80px
     );
   }
   .header-inner {
@@ -149,7 +146,6 @@
     border-radius: 12px;
     padding: 32px;
     margin-bottom: 24px;
-    backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0,0,0,0.4);
   }
   .section-title {
@@ -208,15 +204,8 @@
   .field textarea { min-height: 80px; resize: vertical; }
 
   /* Catering options */
-  .catering-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  .catering-option {
-    position: relative;
-    cursor: pointer;
-  }
+  .catering-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .catering-option { position: relative; cursor: pointer; }
   .catering-option input[type="radio"] { display: none; }
   .catering-label {
     display: flex;
@@ -229,18 +218,14 @@
     cursor: pointer;
     transition: all 0.2s;
   }
-  .catering-label:hover {
-    border-color: rgba(201,168,76,0.5);
-    background: rgba(201,168,76,0.06);
-  }
+  .catering-label:hover { border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.06); }
   .catering-option input:checked + .catering-label {
     border-color: var(--gold);
     background: rgba(201,168,76,0.12);
     box-shadow: 0 0 0 1px rgba(201,168,76,0.3);
   }
   .radio-dot {
-    width: 18px;
-    height: 18px;
+    width: 18px; height: 18px;
     border: 2px solid var(--gold);
     border-radius: 50%;
     flex-shrink: 0;
@@ -251,11 +236,9 @@
   .catering-option input:checked + .catering-label .radio-dot::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 8px;
-    height: 8px;
+    width: 8px; height: 8px;
     background: var(--gold);
     border-radius: 50%;
   }
@@ -272,7 +255,7 @@
   /* Add-ons */
   .addons-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 10px;
   }
   .addon-option { cursor: pointer; }
@@ -288,6 +271,7 @@
     cursor: pointer;
     transition: all 0.2s;
     font-size: 0.85rem;
+    height: 100%;
   }
   .addon-label:hover { border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.06); }
   .addon-option input:checked + .addon-label {
@@ -308,18 +292,28 @@
     background: var(--gold);
     color: var(--dark);
   }
-  .addon-price { margin-left: auto; color: var(--gold-light); font-weight: 700; font-size: 0.78rem; }
+  .addon-name { flex: 1; line-height: 1.3; }
+  .addon-price {
+    margin-left: auto;
+    color: var(--gold-light);
+    font-weight: 700;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .addon-price small { display: block; font-weight: 400; color: rgba(240,221,176,0.5); font-size: 0.68rem; }
 
-  /* Replace beef */
-  .toggle-row {
+  /* Mutton toggle */
+  .toggle-wrapper {
     display: flex; align-items: center; gap: 14px;
     background: rgba(155,28,28,0.08);
     border: 1px solid rgba(155,28,28,0.25);
     border-radius: 8px;
     padding: 14px 16px;
     cursor: pointer;
+    width: 100%;
   }
-  .toggle-row input[type="checkbox"] { display: none; }
+  .toggle-wrapper input[type="checkbox"] { display: none; }
   .toggle-switch {
     width: 40px; height: 22px;
     background: rgba(255,255,255,0.15);
@@ -337,10 +331,8 @@
     border-radius: 50%;
     transition: transform 0.2s;
   }
-  input:checked ~ .toggle-switch { background: var(--red2); }
-  input:checked ~ .toggle-switch::after { transform: translateX(18px); }
-  /* Fix toggle: wrap input+switch together */
-  .toggle-wrapper { display: flex; align-items: center; gap: 14px; cursor: pointer; width: 100%; }
+  .toggle-wrapper input:checked ~ .toggle-switch { background: var(--red2); }
+  .toggle-wrapper input:checked ~ .toggle-switch::after { transform: translateX(18px); }
 
   /* Service options */
   .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -364,6 +356,22 @@
   .service-name { font-size: 0.88rem; font-weight: 700; color: var(--cream); }
   .service-note { font-size: 0.72rem; color: rgba(240,221,176,0.6); }
 
+  /* Persons row */
+  .persons-row { display: flex; align-items: center; gap: 12px; }
+  .persons-row input { max-width: 90px; text-align: center; }
+  .qty-btn {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    width: 36px; height: 36px;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .qty-btn:hover { background: rgba(201,168,76,0.3); }
+
   /* Order summary */
   .order-summary {
     background: rgba(201,168,76,0.06);
@@ -382,13 +390,14 @@
     text-transform: uppercase;
   }
   .summary-row {
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: space-between; align-items: baseline;
     padding: 7px 0;
     border-bottom: 1px solid rgba(201,168,76,0.1);
     font-size: 0.88rem;
+    gap: 12px;
   }
   .summary-row:last-child { border-bottom: none; }
-  .summary-row.total {
+  .summary-row.total-row {
     font-family: 'Cinzel', serif;
     font-size: 1.1rem;
     color: var(--gold);
@@ -398,8 +407,8 @@
     border-top: 1px solid var(--gold);
     border-bottom: none;
   }
-  .summary-label { color: rgba(240,221,176,0.75); }
-  .summary-value { color: var(--cream); font-weight: 600; }
+  .summary-label { color: rgba(240,221,176,0.75); flex-shrink: 0; }
+  .summary-value { color: var(--cream); font-weight: 600; text-align: right; }
 
   /* Submit button */
   .btn-submit {
@@ -447,9 +456,6 @@
     border-top: 1px solid var(--border);
     letter-spacing: 1px;
   }
-
-  .persons-row { display: flex; align-items: center; gap: 12px; }
-  .persons-row input { max-width: 90px; text-align: center; }
 
   #delivery-address-field { display: none; }
   #service-other-field { display: none; }
@@ -532,7 +538,7 @@
           <div class="catering-label">
             <div class="radio-dot"></div>
             <div>
-              <div class="catering-price">$14.99 <small style="font-size:0.65rem;font-family:Lato">/ person</small></div>
+              <div class="catering-price">$14.99 <small style="font-size:0.65rem;font-family:Lato,sans-serif;font-weight:400">/ person</small></div>
               <div class="catering-desc">Polau · Chicken Roast leg/thai · Fish Bhona · Beef Rezella · Kebab · Firni/Payes</div>
             </div>
           </div>
@@ -543,7 +549,7 @@
           <div class="catering-label">
             <div class="radio-dot"></div>
             <div>
-              <div class="catering-price">$10.99 <small style="font-size:0.65rem;font-family:Lato">/ person</small></div>
+              <div class="catering-price">$10.99 <small style="font-size:0.65rem;font-family:Lato,sans-serif;font-weight:400">/ person</small></div>
               <div class="catering-desc">Polau · Chicken Roast leg/thai · Fish Bhona · Kebab · Firni/Payes</div>
             </div>
           </div>
@@ -554,7 +560,7 @@
           <div class="catering-label">
             <div class="radio-dot"></div>
             <div>
-              <div class="catering-price">$7.99 <small style="font-size:0.65rem;font-family:Lato">/ person</small></div>
+              <div class="catering-price">$7.99 <small style="font-size:0.65rem;font-family:Lato,sans-serif;font-weight:400">/ person</small></div>
               <div class="catering-desc">Polau · Chicken Roast leg/thai · Kebab · Firni/Payes</div>
             </div>
           </div>
@@ -565,7 +571,7 @@
           <div class="catering-label">
             <div class="radio-dot"></div>
             <div>
-              <div class="catering-price">$5.99 <small style="font-size:0.65rem;font-family:Lato">/ person</small></div>
+              <div class="catering-price">$5.99 <small style="font-size:0.65rem;font-family:Lato,sans-serif;font-weight:400">/ person</small></div>
               <div class="catering-desc">Shawarma Chicken Wrap with Naan</div>
             </div>
           </div>
@@ -576,7 +582,7 @@
           <div class="catering-label">
             <div class="radio-dot"></div>
             <div>
-              <div class="catering-price">$4.99 <small style="font-size:0.65rem;font-family:Lato">/ person</small></div>
+              <div class="catering-price">$4.99 <small style="font-size:0.65rem;font-family:Lato,sans-serif;font-weight:400">/ person</small></div>
               <div class="catering-desc">Chicken Biryani with leg/thai and an egg</div>
             </div>
           </div>
@@ -587,39 +593,187 @@
       <div class="field" style="margin-top:22px">
         <label>Number of Persons <span class="req">*</span></label>
         <div class="persons-row">
-          <button type="button" onclick="changePersons(-1)" style="background:rgba(201,168,76,0.15);border:1px solid var(--gold);color:var(--gold);width:36px;height:36px;border-radius:6px;font-size:1.2rem;cursor:pointer;flex-shrink:0">−</button>
-          <input type="number" name="number_of_persons" id="personsInput" value="{{ post.number_of_persons|default:'1' }}" min="1" max="500" style="max-width:90px;text-align:center">
-          <button type="button" onclick="changePersons(1)" style="background:rgba(201,168,76,0.15);border:1px solid var(--gold);color:var(--gold);width:36px;height:36px;border-radius:6px;font-size:1.2rem;cursor:pointer;flex-shrink:0">+</button>
+          <button type="button" class="qty-btn" onclick="changePersons(-1)">−</button>
+          <input type="number" name="number_of_persons" id="personsInput" value="{{ post.number_of_persons|default:'1' }}" min="1" max="500">
+          <button type="button" class="qty-btn" onclick="changePersons(1)">+</button>
         </div>
       </div>
     </div>
 
     <!-- Add-ons -->
     <div class="form-card">
-      <div class="section-title"><span class="section-icon">✨</span> Add-ons <span style="font-size:0.75rem;color:rgba(240,221,176,0.5);font-family:Lato;text-transform:none;letter-spacing:0;font-weight:400;margin-left:8px">(per person)</span></div>
-      <div class="addons-grid">
-        <label class="addon-option">
-          <input type="checkbox" name="add_ons" value="chicken_roast" {% if 'chicken_roast' in post.add_ons|default:'' %}checked{% endif %}>
-          <div class="addon-label"><div class="check-box">✓</div> Chicken Roast leg/thai <span class="addon-price">+$3.50</span></div>
-        </label>
-        <label class="addon-option">
-          <input type="checkbox" name="add_ons" value="fish_bhona" {% if 'fish_bhona' in post.add_ons|default:'' %}checked{% endif %}>
-          <div class="addon-label"><div class="check-box">✓</div> Fish Bhona <span class="addon-price">+$4.00</span></div>
-        </label>
-        <label class="addon-option">
-          <input type="checkbox" name="add_ons" value="beef_rezella" {% if 'beef_rezella' in post.add_ons|default:'' %}checked{% endif %}>
-          <div class="addon-label"><div class="check-box">✓</div> Beef Rezella <span class="addon-price">+$5.00</span></div>
-        </label>
-        <label class="addon-option">
-          <input type="checkbox" name="add_ons" value="samee_kebab" {% if 'samee_kebab' in post.add_ons|default:'' %}checked{% endif %}>
-          <div class="addon-label"><div class="check-box">✓</div> Samee Kebab <span class="addon-price">+$2.00</span></div>
-        </label>
-        <label class="addon-option">
-          <input type="checkbox" name="add_ons" value="firni_payes" {% if 'firni_payes' in post.add_ons|default:'' %}checked{% endif %}>
-          <div class="addon-label"><div class="check-box">✓</div> Firni/Payes <span class="addon-price">+$2.00</span></div>
-        </label>
+      <div class="section-title">
+        <span class="section-icon">✨</span> Add-ons
+        <span style="font-size:0.75rem;color:rgba(240,221,176,0.5);font-family:Lato,sans-serif;text-transform:none;letter-spacing:0;font-weight:400;margin-left:4px">(priced per person)</span>
       </div>
 
+      <div class="addons-grid">
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="shawarma_chicken_wrap">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Shawarma Chicken Wrap</span>
+            <span class="addon-price">+$7.969</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="medium_cheese_pizza">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Medium Cheese Pizza</span>
+            <span class="addon-price">+$7.99</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="chicken_roast">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Chicken Roast leg/thai</span>
+            <span class="addon-price">+$3.50</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="fish_bhona">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Fish Bhona</span>
+            <span class="addon-price">+$4.00</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="beef_rezella">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Beef Rezella</span>
+            <span class="addon-price">+$5.00</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="samee_kebab">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Samee Kebab</span>
+            <span class="addon-price">+$2.00</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="firni_payes">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Firni/Payes</span>
+            <span class="addon-price">+$1.50</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="gulab_jam">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Gulab Jam</span>
+            <span class="addon-price">+$1.00</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="veg_samosa">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Veg Samosa</span>
+            <span class="addon-price">+$0.75</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="bbq_chicken">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">BBQ Chicken Leg/Thai</span>
+            <span class="addon-price">+$3.00</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="jorda">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Jorda</span>
+            <span class="addon-price">+$1.50</span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="sutki_dry_fish">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Sutki/Dry Fish Bharta</span>
+            <span class="addon-price">+$3.00<small>3×3cm container</small></span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="mix_vegetable">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Mix Vegetable</span>
+            <span class="addon-price">+$5.00<small>12oz</small></span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="chinese_vegetable">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Chinese Vegetable</span>
+            <span class="addon-price">+$5.00<small>12oz</small></span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="bhona_khichuri">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Bhona Khichuri</span>
+            <span class="addon-price">+$5.00<small>28oz</small></span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="karala_bhaji">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Karala Bhaji</span>
+            <span class="addon-price">+$5.00<small>12oz</small></span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="bindi_bhaji">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Bindi Bhaji</span>
+            <span class="addon-price">+$5.00<small>12oz</small></span>
+          </div>
+        </label>
+
+        <label class="addon-option">
+          <input type="checkbox" name="add_ons" value="italian_pasta">
+          <div class="addon-label">
+            <div class="check-box">✓</div>
+            <span class="addon-name">Italian Alfredo Pasta</span>
+            <span class="addon-price">+$8.99<small>28oz</small></span>
+          </div>
+        </label>
+
+      </div>
+
+      <!-- Replace Beef toggle -->
       <div style="margin-top:18px">
         <label class="toggle-wrapper">
           <input type="checkbox" name="replace_beef_mutton" id="beefToggle" {% if post.replace_beef_mutton %}checked{% endif %}>
@@ -642,7 +796,7 @@
       <div class="section-title"><span class="section-icon">🚚</span> Method of Service</div>
       <div class="service-grid">
         <label class="service-option">
-          <input type="radio" name="service_method" value="pickup" {% if post.service_method == 'pickup' or not post.service_method %}checked{% endif %} required>
+          <input type="radio" name="service_method" value="pickup" {% if not post.service_method or post.service_method == 'pickup' %}checked{% endif %} required>
           <div class="service-label">
             <span class="service-icon">🛍</span>
             <span class="service-name">Pick-up</span>
@@ -683,23 +837,28 @@
       <div class="section-title"><span class="section-icon">🧾</span> Order Summary</div>
       <div class="order-summary">
         <div class="summary-title">Price Breakdown</div>
+
         <div class="summary-row">
           <span class="summary-label">Package</span>
-          <span class="summary-value" id="summaryPackage">—</span>
+          <span class="summary-value" id="summaryPackage">— select a package above —</span>
         </div>
         <div class="summary-row">
           <span class="summary-label">Persons</span>
           <span class="summary-value" id="summaryPersons">1</span>
         </div>
+        <div class="summary-row">
+          <span class="summary-label">Package subtotal</span>
+          <span class="summary-value" id="summaryPkgSubtotal">$0.00</span>
+        </div>
         <div class="summary-row" id="addonsRow" style="display:none">
-          <span class="summary-label">Add-ons (per person)</span>
+          <span class="summary-label">Add-ons</span>
           <span class="summary-value" id="summaryAddons">—</span>
         </div>
         <div class="summary-row" id="muttonRow" style="display:none">
           <span class="summary-label">Mutton upgrade</span>
           <span class="summary-value" id="summaryMutton">—</span>
         </div>
-        <div class="summary-row">
+        <div class="summary-row" style="border-top:1px solid rgba(201,168,76,0.2);margin-top:4px;padding-top:10px">
           <span class="summary-label">Subtotal</span>
           <span class="summary-value" id="summarySubtotal">$0.00</span>
         </div>
@@ -707,7 +866,7 @@
           <span class="summary-label">HST / Tax (13%)</span>
           <span class="summary-value" id="summaryTax">$0.00</span>
         </div>
-        <div class="summary-row total">
+        <div class="summary-row total-row">
           <span>Total</span>
           <span id="summaryTotal">$0.00</span>
         </div>
@@ -717,7 +876,8 @@
 
       <p style="text-align:center;font-size:0.78rem;color:rgba(240,221,176,0.45);margin-top:16px;line-height:1.7">
         By placing this order you agree to send minimum 30% payment confirmation.<br>
-        Questions? Call <strong style="color:var(--gold-light)">Ph# 416 261 0888</strong> or email <a href="mailto:greenmaple.com@gmail.com" style="color:var(--gold-light)">greenmaple.com@gmail.com</a>
+        Questions? Call <strong style="color:var(--gold-light)">Ph# 416 261 0888</strong> or email
+        <a href="mailto:greenmaple.com@gmail.com" style="color:var(--gold-light)">greenmaple.com@gmail.com</a>
       </p>
     </div>
 
@@ -736,13 +896,6 @@ const CATERING_PRICES = {
   'wrap_5_99': 5.99,
   'biryani_4_99': 4.99,
 };
-const ADDON_PRICES = {
-  'chicken_roast': 3.50,
-  'fish_bhona': 4.00,
-  'beef_rezella': 5.00,
-  'samee_kebab': 2.00,
-  'firni_payes': 2.00,
-};
 const CATERING_LABELS = {
   'premium_14_99': '$14.99/person',
   'standard_10_99': '$10.99/person',
@@ -750,6 +903,28 @@ const CATERING_LABELS = {
   'wrap_5_99': '$5.99/person',
   'biryani_4_99': '$4.99/person',
 };
+const ADDON_PRICES = {
+'shawarma_chicken_wrap': 7.99,
+'medium_cheese_pizza': 7.99,
+  'chicken_roast': 3.50,
+  'fish_bhona': 4.00,
+  'beef_rezella': 5.00,
+  'samee_kebab': 2.00,
+  'firni_payes': 1.50,
+  'gulab_jam': 1.00,
+  'veg_samosa': 0.75,
+  'bbq_chicken': 3.00,
+  'jorda': 1.50,
+  'sutki_dry_fish': 3.00,
+  'mix_vegetable': 5.00,
+  'chinese_vegetable': 5.00,
+  'bhona_khichuri': 5.00,
+  'karala_bhaji': 5.00,
+  'bindi_bhaji': 5.00,
+  'italian_pasta': 8.99,
+};
+
+function fmt(n) { return '$' + n.toFixed(2); }
 
 function changePersons(delta) {
   const inp = document.getElementById('personsInput');
@@ -759,67 +934,80 @@ function changePersons(delta) {
 
 function updateSummary() {
   const selectedPkg = document.querySelector('input[name="catering_option"]:checked');
-  const persons = parseInt(document.getElementById('personsInput').value || 1);
+  const persons = Math.max(1, parseInt(document.getElementById('personsInput').value || 1));
   const addons = [...document.querySelectorAll('input[name="add_ons"]:checked')].map(e => e.value);
   const mutton = document.getElementById('beefToggle').checked;
   const serviceMethod = document.querySelector('input[name="service_method"]:checked')?.value;
 
-  // Service visibility
-  const delivField = document.getElementById('delivery-address-field');
-  const otherField = document.getElementById('service-other-field');
-  delivField.style.display = serviceMethod === 'delivery' ? 'block' : 'none';
-  otherField.style.display = serviceMethod === 'other' ? 'block' : 'none';
+  // Show/hide conditional fields
+  document.getElementById('delivery-address-field').style.display = serviceMethod === 'delivery' ? 'block' : 'none';
+  document.getElementById('service-other-field').style.display   = serviceMethod === 'other'    ? 'block' : 'none';
 
   if (!selectedPkg) {
-    ['summaryPackage','summarySubtotal','summaryTax','summaryTotal'].forEach(id => {
-      document.getElementById(id).textContent = id === 'summaryPackage' ? '—' : '$0.00';
-    });
-    document.getElementById('summaryPersons').textContent = persons;
+    document.getElementById('summaryPackage').textContent    = '— select a package above —';
+    document.getElementById('summaryPersons').textContent    = persons;
+    document.getElementById('summaryPkgSubtotal').textContent = '$0.00';
+    document.getElementById('summarySubtotal').textContent   = '$0.00';
+    document.getElementById('summaryTax').textContent        = '$0.00';
+    document.getElementById('summaryTotal').textContent      = '$0.00';
+    document.getElementById('addonsRow').style.display       = 'none';
+    document.getElementById('muttonRow').style.display       = 'none';
     return;
   }
 
-  const pkg = selectedPkg.value;
-  const basePerPerson = CATERING_PRICES[pkg];
-  let addonPerPerson = addons.reduce((s, a) => s + (ADDON_PRICES[a] || 0), 0);
-  if (mutton) addonPerPerson += 1.00;
+  const pkg             = selectedPkg.value;
+  const basePerPerson   = CATERING_PRICES[pkg];
+  const pkgSubtotal     = basePerPerson * persons;
 
-  const subtotal = (basePerPerson + addonPerPerson) * persons;
-  const tax = subtotal * 0.13;
-  const total = subtotal + tax;
+  // Add-ons: each is per-person, then multiplied by number of persons
+  const addonPerPerson  = addons.reduce((s, a) => s + (ADDON_PRICES[a] || 0), 0);
+  const addonTotal      = addonPerPerson * persons;
 
-  document.getElementById('summaryPackage').textContent = CATERING_LABELS[pkg] || pkg;
-  document.getElementById('summaryPersons').textContent = persons;
-  document.getElementById('summarySubtotal').textContent = '$' + subtotal.toFixed(2);
-  document.getElementById('summaryTax').textContent = '$' + tax.toFixed(2);
-  document.getElementById('summaryTotal').textContent = '$' + total.toFixed(2);
+  // Mutton: per-person upgrade
+  const muttonTotal     = mutton ? 1.00 * persons : 0;
 
+  const subtotal        = pkgSubtotal + addonTotal + muttonTotal;
+  const tax             = subtotal * 0.13;
+  const total           = subtotal + tax;
+
+  document.getElementById('summaryPackage').textContent    = CATERING_LABELS[pkg];
+  document.getElementById('summaryPersons').textContent    = persons;
+  document.getElementById('summaryPkgSubtotal').textContent = fmt(pkgSubtotal) + ' (' + fmt(basePerPerson) + ' × ' + persons + ')';
+  document.getElementById('summarySubtotal').textContent   = fmt(subtotal);
+  document.getElementById('summaryTax').textContent        = fmt(tax);
+  document.getElementById('summaryTotal').textContent      = fmt(total);
+
+  // Add-ons row
   const addonsRow = document.getElementById('addonsRow');
-  if (addonPerPerson > 0 && !mutton && addons.length > 0) {
+  if (addonPerPerson > 0) {
     addonsRow.style.display = 'flex';
-    document.getElementById('summaryAddons').textContent = '+$' + (addons.reduce((s,a)=>s+(ADDON_PRICES[a]||0),0)).toFixed(2);
-  } else if (addons.length > 0 && addonPerPerson > 0) {
-    addonsRow.style.display = 'flex';
-    document.getElementById('summaryAddons').textContent = '+$' + addonPerPerson.toFixed(2);
+    document.getElementById('summaryAddons').textContent =
+      fmt(addonTotal) + ' (' + fmt(addonPerPerson) + '/person × ' + persons + ')';
   } else {
     addonsRow.style.display = 'none';
   }
 
+  // Mutton row
   const muttonRow = document.getElementById('muttonRow');
   if (mutton) {
     muttonRow.style.display = 'flex';
-    document.getElementById('summaryMutton').textContent = '+$' + (1 * persons).toFixed(2);
+    document.getElementById('summaryMutton').textContent =
+      fmt(muttonTotal) + ' ($1.00/person × ' + persons + ')';
   } else {
     muttonRow.style.display = 'none';
   }
 }
 
-// Bind all inputs
-document.querySelectorAll('input[name="catering_option"]').forEach(el => el.addEventListener('change', updateSummary));
+// Bind all interactive inputs
+document.querySe
+
+lectorAll('input[name="catering_option"]').forEach(el => el.addEventListener('change', updateSummary));
 document.querySelectorAll('input[name="add_ons"]').forEach(el => el.addEventListener('change', updateSummary));
 document.querySelectorAll('input[name="service_method"]').forEach(el => el.addEventListener('change', updateSummary));
 document.getElementById('personsInput').addEventListener('input', updateSummary);
 document.getElementById('beefToggle').addEventListener('change', updateSummary);
 
+// Run on page load
 updateSummary();
 </script>
 </body>
