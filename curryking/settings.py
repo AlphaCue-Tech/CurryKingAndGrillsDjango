@@ -14,6 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'orders',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -75,3 +76,8 @@ EMAIL_HOST_USER = ''      # ← Your Gmail
 EMAIL_HOST_PASSWORD = ''    # ← Gmail App Password
 DEFAULT_FROM_EMAIL = 'Curry King & Grills <curryking2025@gmail.com>'
 KITCHEN_EMAIL = 'greenmaple.com@gmail.com'        # ← Kitchen notification email
+
+
+RECAPTCHA_PUBLIC_KEY  = '6Lff2cwsAAAAAHwCi4e2YnwR2VM1YJ9YzDTBGwVp'
+RECAPTCHA_PRIVATE_KEY = '6Lff2cwsAAAAAHuF7Lt1vgFkhP17nEDxJXQlRpxi'
+RECAPTCHA_REQUIRED_SCORE = 0.5  # 0.0 = bot, 1.0 = human. 0.5 is a safe threshold

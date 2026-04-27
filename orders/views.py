@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import Order, CATERING_PRICES, ADD_ON_PRICES, TAX_RATE
 import json
 from decimal import Decimal
-
+from .forms import OrderForm
 
 ADD_ON_LABELS = {
     'shawarma_chicken_wrap':'Shawarma Chicken Wrap',
@@ -31,6 +31,16 @@ ADD_ON_LABELS = {
 
 def order_form(request):
     if request.method == 'POST':
+
+        # Honeypot check — bots fill hidden fields
+        if request.POST.get('website'):
+            return render(request, 'orders/order_form.html', {})  # silently ignore
+
+        captcha_form = OrderForm(request.POST)
+        if not captcha_form.is_valid():
+            messages.error(request, 'Security check failed. Please try again.')
+            return render(request, 'orders/order_form.html', {'post': request.POST})
+
         customer_name = request.POST.get('customer_name', '').strip()
         address = request.POST.get('address', '').strip()
         contact_number = request.POST.get('contact_number', '').strip()
@@ -178,7 +188,9 @@ Thank you for choosing Curry King & Grills!
 
         return redirect('order_success', pk=order.pk)
 
-    return render(request, 'orders/order_form.html', {})
+    return render(request, 'orders/order_form.html', {
+        'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY
+    })
 
 
 def order_success(request, pk):

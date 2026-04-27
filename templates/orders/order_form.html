@@ -6,7 +6,8 @@
 <title>Order Online – Curry King & Grills</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
+  <script src="https://www.google.com/recaptcha/api.js?render={{ RECAPTCHA_PUBLIC_KEY }}"></script>
+  <style>
   :root {
     --gold: #c9a84c;
     --gold-light: #e8c97a;
@@ -872,6 +873,12 @@
         </div>
       </div>
 
+      <!-- Honeypot: hidden from humans, bots fill it -->
+      <div style="display:none;position:absolute;left:-9999px" aria-hidden="true">
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
       <button type="submit" class="btn-submit">👑 Place Order</button>
 
       <p style="text-align:center;font-size:0.78rem;color:rgba(240,221,176,0.45);margin-top:16px;line-height:1.7">
@@ -930,6 +937,17 @@ function changePersons(delta) {
   const inp = document.getElementById('personsInput');
   inp.value = Math.max(1, parseInt(inp.value || 1) + delta);
   updateSummary();
+
+  // Attach reCAPTCHA token on submit
+  document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      grecaptcha.ready(function() {
+          grecaptcha.execute('{{ RECAPTCHA_PUBLIC_KEY }}', {action: 'submit'}).then(function(token) {
+              document.getElementById('g-recaptcha-response').value = token;
+              document.getElementById('orderForm').submit();
+          });
+      });
+  });
 }
 
 function updateSummary() {
